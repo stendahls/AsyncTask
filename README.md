@@ -1,3 +1,6 @@
+# Work in progress, this will be udpated soon...
+The plan is to port this to Swift 3 and to extend as needed
+
 # AsyncTask
 
 [![CI Status](http://img.shields.io/travis/zhxnlai/AsyncTask.svg?style=flat)](https://travis-ci.org/zhxnlai/AsyncTask)
