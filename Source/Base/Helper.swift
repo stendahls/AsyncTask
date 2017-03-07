@@ -8,8 +8,9 @@
 
 import Foundation
 
-internal extension dispatch_time_t {
-    init(timeInterval: NSTimeInterval) {
-        self.init(timeInterval < NSTimeInterval(0) ? DISPATCH_TIME_FOREVER : dispatch_time(DISPATCH_TIME_NOW, Int64(timeInterval * Double(NSEC_PER_SEC))))
+internal extension DispatchTime {
+    init(timeInterval: TimeInterval) {
+        let timeIntervalInNanoSeconds = timeInterval < TimeInterval(0) ? DispatchTime.distantFuture : DispatchTime.now() + Double(Int64(timeInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        self.init(uptimeNanoseconds: timeIntervalInNanoSeconds.uptimeNanoseconds)
     }
 }

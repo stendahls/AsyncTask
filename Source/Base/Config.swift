@@ -8,8 +8,14 @@
 
 import Foundation
 
-let DefaultQueue = DispatchQueue.UserInitiated
+let DefaultQueue = DispatchQueue.userInitiated
 
-let TimeoutForever = NSTimeInterval(-1)
+let TimeoutForever = TimeInterval(-1)
 
-let DefaultConcurrency = Int.max
+let DefaultConcurrency = 50
+
+let async_custom_queue = DispatchQueue(label: "com.asynctask.serial.queue")
+
+enum AsyncTaskError: Error {
+    case timeout
+}
