@@ -60,6 +60,7 @@
 		85DC13051E6DBA2E00CEF7AD /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942505E1D18D4E300A8EC2C /* Task.swift */; };
 		85DC13061E6DBA2E00CEF7AD /* ThrowableTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0942505F1D18D4E300A8EC2C /* ThrowableTask.swift */; };
 		85DC130F1E6DBEC000CEF7AD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DC130E1E6DBEC000CEF7AD /* main.swift */; };
+		85DC133E1E6ED59000CEF7AD /* AsyncTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 097BB1AE1D18B70400B0ABA7 /* AsyncTask.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85DC133E1E6ED59000CEF7AD /* AsyncTask.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1206,6 +1208,7 @@
 				85DC13011E6DBA1900CEF7AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

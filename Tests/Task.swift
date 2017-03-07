@@ -218,6 +218,10 @@ class TaskTests: XCTestCase {
     
     func testThatAsynRunsInParallel() {
         let numbers: [Int] = [0,1,2,3,4,5]
+        let expect = expectation(description: "All tasks finished")
+        let lockQueue = DispatchQueue(label: "lock")
+        let concurrentQueue = DispatchQueue(label: "concurrent", qos: .userInitiated, attributes: .concurrent)
+        var result: String = ""
         
         let toStringTask = { (number: Int) -> Task<String> in
             return Task {
@@ -226,13 +230,19 @@ class TaskTests: XCTestCase {
             }
         }
         
-        var result: String = ""
-        
         numbers.forEach ({
-            toStringTask($0).async() { result += $0 }
+            toStringTask($0).async(concurrentQueue) { convertedNumber in
+                lockQueue.sync {
+                    result = result + convertedNumber
+                    
+                    if result.characters.count >= numbers.count {
+                        expect.fulfill()
+                    }
+                }
+            }
         })
         
-        Thread.sleep(forTimeInterval: 0.8)
+        waitForExpectations(timeout: 5)
 
         numbers.forEach({ number in
             XCTAssert(result.contains("\(number)"))
