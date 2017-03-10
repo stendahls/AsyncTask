@@ -1,26 +1,28 @@
 osx_image: xcode7.3
 language: objective-c
-before_install:
-- gem install cocoapods
-- brew update
-- brew outdated carthage || brew upgrade carthage
 env:
   global:
   - FRAMEWORK_NAME=AsyncTask
-before_script:
-- carthage bootstrap --platform osx, ios
+branches:
+  only:
+  - master
+before_install:
+- brew update
+- brew outdated carthage || brew upgrade carthage
+before_script: 
+# - carthage bootstrap --platform osx, ios
 script:
 - xctool -project AsyncTask.xcodeproj -scheme AsyncTaskOSXTests build test
 - pod lib lint AsyncTask.podspec
 before_deploy:
-- carthage build --no-skip-current  --platform osx, ios
+- carthage build --no-skip-current --platform osx, ios
 - carthage archive $FRAMEWORK_NAME
 deploy:
   provider: releases
   api_key:
-    secure: EKGGCMYgZIrBzeaBIer8N1kVFCgJ7FVvM1raRuOak7Io93hLiIh8rdaXIgynWT/RujM0ErS55foHOn4Xo/7neu215i2r6Zc84DqPYwi+xxmpNTnJvXSm6R4z5Uj6dsTxsmzXQyJMQa63+hD5d4NONbzUzCAAmZwUz8KLPcpMiY6HKjPS3bferDanMMZWeDFn7GBTwLeRJN/G0RPJOMg8RE7WOuqeA4y6a7F7ObrBgxHEqvnqDiy+VQy1chhdsmRRYxUJNxLhV3WcJGxSs7lTxVGwdfTMm3oZb8tyj3fZ2nvT+k5xaCQ/QlcGbK5KS8NkYxenqccyHA8HtI8dXnso2vhuHHO1OPh9kNoA7mQ1Qvh5b1RaNKU0GF2oJU6edvKwmr0JBtRntFF06N8A5Ee8uQkNDnnh4KkRlV4LcZ2UDHQ2JhfvuamivrHCsyiI/xgS5VpceEUeWb2I99rfW6j+vqSNxKWNeT4gRxBgEtM4PAf3q0BXiGroLq8qfuatQmWqTFImz8qS8v0UgwMbFRdnwXb2t3Wr1NYCu2FpCajK4ijq0WKoZkfVC4xkRRY3joa4tSargjxsmAw/FLrt+jt3N/7BwfUDJVFFw5lQx+RQBVw50jWhB7go+u2rR7TbnqZeMT1Pm4M9CPne9YgZR4ETCDrric/dpdRCJMTx3aL0bws=
+    secure: TuZu5MlLeRdHlIX1PquhQzqXNgMpMUq9+b7HxjcqtEv8zUiQWQjoaXdDhgJ2AIWK+XM6WSrzolorsNXgILYcR9B/UTv017gu5D7RF4VROcpsTyi2rgrfBVeaNMMNVAPfGAykHxskfvVvXrTRU1Bp6GGVLE5hxFx/skkgtB/lZxJWhDQXytijROdnb+ITTqkEapmRbp/ACvcDrAHpFVzcZ2r20VRJK23mA2jSJL4hX8GraKzwgjPmcoVt67EDMnnhUDbMx9vL4QGnbpeKFDP7uYtgfme64mbAsbCvtFP89qPndLnvESl0Sn0g2nqBFSqiSk3lAspi1NobZVmmI3xiHrYebJLAYrQzu7PbT467iGSvN8UFL91o/rUTrV7V+fuvqEAD/2ESHEx/XCm+pfix60PKCiku+BNytWZFOtuobMo1RimUazkX87GZkHFUIWIyL/U1QC8D9D6dmkEvJJrW0ZFbIMaAZ45bTLqcWeQFVL7EH06u7Wc3dsUSQMNlXqxaI42tJ708Rtp0+iP9zj9zIP7BNFpUiLOsseKBMZTuHsCj90A/L5P2GRr1I52/rR4skov6/PHmpnur9+WMrutkLnFJ/dAlPKXMDx5R3ZK3I13iZuBHAbo4gFrnEZkjZ7N0QamSAQxD7LK6phBp1n+yuNM2LUWVq3KqdDOdlM7+EUs=
   file: AsyncTask.framework.zip
   skip_cleanup: true
   on:
-    repo: zhxnlai/AsyncTask
+    repo: stendahls/AsyncTask
     tags: true

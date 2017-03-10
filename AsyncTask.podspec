@@ -5,10 +5,10 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 An asynchronous programming library for Swift that is composable and protocol oriented.
                        DESC
-  s.homepage         = 'https://github.com/zhxnlai/AsyncTask'
+  s.homepage         = 'https://github.com/stendahls/AsyncTask'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Zhixuan Lai' => 'zhxnlai@gmail.com' }
-  s.source           = { :git => 'https://github.com/zhxnlai/AsyncTask.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/stendahls/AsyncTask.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
