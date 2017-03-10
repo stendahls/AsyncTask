@@ -31,3 +31,18 @@ extension MutableCollection where Index == Int {
         }
     }
 }
+
+// Helpers
+extension Double {
+    static var random: Double {
+        get {
+            return Double(arc4random()) / 0xFFFFFFFF
+        }
+    }
+    
+    
+    static func random(min: Double, max: Double) -> Double {
+        return Double.random * (max - min) + min
+    }
+}
+

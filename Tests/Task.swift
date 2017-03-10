@@ -220,7 +220,7 @@ class TaskTests: XCTestCase {
         let numbers: [Int] = [0,1,2,3,4,5]
         let expect = expectation(description: "All tasks finished")
         let lockQueue = DispatchQueue(label: "lock")
-        let concurrentQueue = DispatchQueue(label: "concurrent", qos: .userInitiated, attributes: .concurrent)
+        let concurrentQueue = DispatchQueue(label: "concurrent", attributes: .concurrent)
         var result: String = ""
         
         let toStringTask = { (number: Int) -> Task<String> in
@@ -247,19 +247,5 @@ class TaskTests: XCTestCase {
         numbers.forEach({ number in
             XCTAssert(result.contains("\(number)"))
         })
-    }
-}
-
-// Helpers
-fileprivate extension Double {
-    static var random: Double {
-        get {
-            return Double(arc4random()) / 0xFFFFFFFF
-        }
-    }
-    
-
-    static func random(min: Double, max: Double) -> Double {
-        return Double.random * (max - min) + min
     }
 }
