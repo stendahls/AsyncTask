@@ -26,3 +26,4 @@ deploy:
   on:
     repo: stendahls/AsyncTask
     tags: true
+
