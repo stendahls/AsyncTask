@@ -15,7 +15,7 @@ before_install:
 - brew outdated carthage || brew upgrade carthage
 
 before_script: 
-# - carthage bootstrap --platform osx, ios
+- carthage bootstrap --platform osx, ios
 
 script:
 # - xctool -project $PROJECT -scheme 'AsyncTaskOSXTests' build test
@@ -34,5 +34,6 @@ deploy:
   skip_cleanup: true
   on:
     repo: stendahls/AsyncTask
+	branch: master
     tags: true
 
