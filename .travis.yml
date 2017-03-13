@@ -14,9 +14,6 @@ before_install:
 - brew update
 - brew outdated carthage || brew upgrade carthage
 
-before_script: 
-- carthage bootstrap --platform osx, ios
-
 script:
 - xcodebuild clean build test -project AsyncTask.xcodeproj -scheme 'AsyncTaskOSXTests' 
 - pod lib lint AsyncTask.podspec
