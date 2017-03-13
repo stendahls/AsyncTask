@@ -18,9 +18,8 @@ before_script:
 - carthage bootstrap --platform osx, ios
 
 script:
-# - xctool -project $PROJECT -scheme 'AsyncTaskOSXTests' build test
 - xcodebuild clean build test -project AsyncTask.xcodeproj -scheme 'AsyncTaskOSXTests' 
-# - pod lib lint AsyncTask.podspec
+- pod lib lint AsyncTask.podspec
 
 before_deploy:
 - carthage build --no-skip-current --platform osx, ios
