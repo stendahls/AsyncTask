@@ -5,7 +5,6 @@ rvm: 2.2.2
 env:
   global:
   - FRAMEWORK_NAME=AsyncTask
-  - PROJECT=AsyncTask.xcodeproj
 
 branches:
   only:
@@ -19,9 +18,9 @@ before_script:
 # - carthage bootstrap --platform osx, ios
 
 script:
-# - xctool -project "$PROJECT" -scheme 'AsyncTaskOSXTests' build test
-- xcodebuild -project "$PROJECT" -scheme 'AsyncTaskOSXTests' CODE_SIGNING_REQUIRED=NO build test | xcpretty
-- pod lib lint AsyncTask.podspec
+# - xctool -project $PROJECT -scheme 'AsyncTaskOSXTests' build test
+- xcodebuild clean build test -project AsyncTask.xcodeproj -scheme 'AsyncTaskOSXTests' 
+# - pod lib lint AsyncTask.podspec
 
 before_deploy:
 - carthage build --no-skip-current --platform osx, ios
