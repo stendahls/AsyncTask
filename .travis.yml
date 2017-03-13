@@ -13,6 +13,7 @@ branches:
 before_install:
 - brew update
 - brew outdated carthage || brew upgrade carthage
+- gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
 
 script:
 - xcodebuild clean build test -project AsyncTask.xcodeproj -scheme 'AsyncTaskOSXTests' 
