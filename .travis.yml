@@ -1,9 +1,11 @@
 osx_image: xcode8
 language: objective-c
+rvm: 2.2.2
 
 env:
   global:
   - FRAMEWORK_NAME=AsyncTask
+  - PROJECT=AsyncTask.xcodeproj
 
 branches:
   only:
@@ -17,7 +19,8 @@ before_script:
 # - carthage bootstrap --platform osx, ios
 
 script:
-- xctool -project AsyncTask.xcodeproj -scheme AsyncTaskOSXTests build test
+# - xctool -project "$PROJECT" -scheme 'AsyncTaskOSXTests' build test
+- xcodebuild -project "$PROJECT" -scheme 'AsyncTaskOSXTests' CODE_SIGNING_REQUIRED=NO build test | xcpretty
 - pod lib lint AsyncTask.podspec
 
 before_deploy:
