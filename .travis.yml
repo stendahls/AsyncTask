@@ -33,6 +33,6 @@ deploy:
   skip_cleanup: true
   on:
     repo: stendahls/AsyncTask
-	branch: master
+    branch: master
     tags: true
 
