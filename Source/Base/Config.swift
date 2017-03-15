@@ -14,7 +14,7 @@ let TimeoutForever = TimeInterval(-1)
 
 let DefaultConcurrency = 50
 
-let async_custom_queue = DispatchQueue(label: "com.asynctask.serial.queue")
+let async_custom_queue = DispatchQueue(label: "asynctask.serial.queue")
 
 enum AsyncTaskError: Error {
     case timeout
