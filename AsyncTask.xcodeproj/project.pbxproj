@@ -217,19 +217,11 @@
 			children = (
 				094250761D1918A700A8EC2C /* AppDelegate.swift */,
 				85DC130E1E6DBEC000CEF7AD /* main.swift */,
-				0942509F1D1919A200A8EC2C /* Demos */,
 				0942507D1D1918A700A8EC2C /* Assets.xcassets */,
 				0942507F1D1918A700A8EC2C /* LaunchScreen.storyboard */,
 				094250821D1918A700A8EC2C /* Info.plist */,
 			);
 			path = Demo;
-			sourceTree = "<group>";
-		};
-		0942509F1D1919A200A8EC2C /* Demos */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Demos;
 			sourceTree = "<group>";
 		};
 		097BB1A41D18B70400B0ABA7 = {
