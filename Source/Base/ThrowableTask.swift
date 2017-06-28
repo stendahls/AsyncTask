@@ -47,6 +47,7 @@ public protocol ThrowableTaskType {
 
     func action(_ completion: @escaping ResultCallback)
     func asyncResult(_ queue: DispatchQueue, completion: @escaping ResultCallback)
+    func async(_ queue: DispatchQueue, completion: @escaping (ReturnType?) -> Void)
     func awaitResult(_ queue: DispatchQueue, timeout: TimeInterval) -> Result<ReturnType>
     func await(_ queue: DispatchQueue, timeout: TimeInterval) throws -> ReturnType
 }
@@ -56,6 +57,12 @@ extension ThrowableTaskType {
     public func asyncResult(_ queue: DispatchQueue = DefaultQueue, completion: @escaping ResultCallback) {
         queue.async {
             self.action(completion)
+        }
+    }
+    
+    public func async(_ queue: DispatchQueue = DefaultQueue, completion: @escaping (ReturnType?) -> Void) {
+        asyncResult(queue) { (result) in
+            completion(try? result.extract())
         }
     }
 

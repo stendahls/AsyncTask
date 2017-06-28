@@ -25,6 +25,8 @@
 
 import Foundation
 
+
+// Meant to be used only for scenarios where no error can be produced
 public protocol TaskType {
     associatedtype ReturnType
     
@@ -32,7 +34,6 @@ public protocol TaskType {
 
     func action(_ completion: @escaping ResultCallback)
     func async(_ queue: DispatchQueue, completion: @escaping ResultCallback)
-    func await(_ queue: DispatchQueue, timeout: TimeInterval) -> ReturnType?
     func await(_ queue: DispatchQueue) -> ReturnType
 }
 
@@ -51,15 +52,6 @@ extension TaskType {
             if case let .success(r) = result {
                 completion(r)
             }
-        }
-    }
-
-    public func await(_ queue: DispatchQueue = DefaultQueue, timeout: TimeInterval) -> ReturnType? {
-        do {
-            let result = try throwableTask.awaitResult(queue, timeout: timeout).extract()
-            return result
-        } catch {
-            return nil
         }
     }
 
