@@ -203,15 +203,6 @@ class TaskTests: XCTestCase {
         waitForExpectations(timeout: 0.5, handler: nil)
     }
     
-    func testThatAwaitReturnsNilAfterTimout() {
-        let echo = Task { () -> String in
-            Thread.sleep(forTimeInterval: 0.5)
-            return "Hello"
-        }
-        
-        XCTAssertNil(echo.await(.background, timeout: 0.05))
-    }
-    
     func testThatAwaitRunsSerially() {
         let numbers: [Int] = [0,1,2,3,4,5]
         
