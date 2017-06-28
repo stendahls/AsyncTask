@@ -72,6 +72,22 @@ class CollectionTaskTests: XCTestCase {
         XCTAssert(results == numbers.map {number in "\(number)"})
     }
     
+    func testThatAwaitAllWorksWithEmptyArrayOfTasks() {
+        let finishExpectation = expectation(description: "Finish expectation")
+        
+        DispatchQueue.global().async {
+            let noTasks: [Task<Void>] = []
+            
+            let results = noTasks.awaitAll()
+            
+            XCTAssert(results.count == 0)
+            
+            finishExpectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     func testThatAwaitAllWorksWithArrayOfTasks() {
         for _ in 0..<1000 {
             let results = numbers.map(toString).awaitAll()
@@ -136,8 +152,45 @@ class CollectionTaskTests: XCTestCase {
         XCTAssert([task1, task2].awaitFirst() == nil)
     }
     
+    func testThatAwaitFirstWorksWithEmptyArrayOfThrowableTasks() {
+        
+        let finishExpectation = expectation(description: "Finish expectation")
+        
+        DispatchQueue.global().async {
+            do {
+                let noTasks: [ThrowableTask<Void>] = []
+                
+                try noTasks.awaitFirst()
+            } catch {
+                finishExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     func testThatAwaitAllWorksWithThrowableTasks() {
         XCTAssertThrowsError(try numbers.map(toStringExceptZero).awaitAll())
+    }
+    
+    func testThatAwaitAllWorksWithEmptyArrayOfThrowabeTasks() {
+        let finishExpectation = expectation(description: "Finish expectation")
+        
+        DispatchQueue.global().async {
+            do {
+                let noTasks: [ThrowableTask<Void>] = []
+                
+                let results = try noTasks.awaitAll()
+                
+                XCTAssert(results.count == 0)
+                
+                finishExpectation.fulfill()
+            } catch {
+                XCTFail("Error thrown")
+            }
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testThatAwaitFirstWorksWithThrowableTasks() {

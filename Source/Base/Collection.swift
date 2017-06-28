@@ -30,6 +30,10 @@ extension Sequence where Iterator.Element : ThrowableTaskType {
     public func awaitFirstResult(_ queue: DispatchQueue = DefaultQueue, concurrency: Int = DefaultConcurrency) -> Result<Iterator.Element.ReturnType> {
         let tasks = map{$0}
         
+        guard tasks.count > 0 else {
+            return Result.failure(AsyncTaskError.emptySequence)
+        }
+        
         return Task(action: { (callback: @escaping (Result<Iterator.Element.ReturnType>) -> ()) in
             tasks.concurrentForEach(queue, concurrency: concurrency, transform: {task in task.awaitResult()}) { result in
                 callback(result)
@@ -136,6 +140,10 @@ extension Array {
     }
 
     func concurrentMap<U>(_ queue: DispatchQueue, concurrency: Int, transform: @escaping (Element) -> U) -> [U] {
+        guard count > 0 else {
+            return []
+        }
+        
         let fd_sema = DispatchSemaphore(value: 0)
         let fd_sema2 = DispatchSemaphore(value: concurrency)
 

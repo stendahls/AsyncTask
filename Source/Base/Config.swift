@@ -36,4 +36,5 @@ let async_custom_queue = DispatchQueue(label: "asynctask.serial.queue")
 
 enum AsyncTaskError: Error {
     case timeout
+    case emptySequence
 }
