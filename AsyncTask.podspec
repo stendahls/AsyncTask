@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'AsyncTask'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'An asynchronous programming library for Swift.'
   s.description      = <<-DESC
 An asynchronous programming library for Swift that is composable and protocol oriented.
