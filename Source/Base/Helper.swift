@@ -26,8 +26,12 @@
 import Foundation
 
 internal extension DispatchTime {
-    init(timeInterval: TimeInterval) {
-        let timeIntervalInNanoSeconds = timeInterval < TimeInterval(0) ? DispatchTime.distantFuture : DispatchTime.now() + Double(Int64(timeInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-        self.init(uptimeNanoseconds: timeIntervalInNanoSeconds.uptimeNanoseconds)
+    static func withTimeInterval(_ timeInterval: TimeInterval) -> DispatchTime {
+        guard timeInterval > TimeInterval(0) else {
+            return DispatchTime.distantFuture
+        }
+        
+        let dispatchTime = DispatchTime.now() + Double(Int64(timeInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        return DispatchTime(uptimeNanoseconds: dispatchTime.uptimeNanoseconds)
     }
 }

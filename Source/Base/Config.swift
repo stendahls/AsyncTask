@@ -26,15 +26,15 @@
 
 import Foundation
 
-let DefaultQueue = DispatchQueue.userInitiated
+public let DefaultQueue = DispatchQueue.userInitiated
 
-let TimeoutForever = TimeInterval(-1)
+public let TimeoutForever = TimeInterval(-1)
 
-let DefaultConcurrency = 50
+public let DefaultConcurrency = 50
 
 let async_custom_queue = DispatchQueue(label: "asynctask.serial.queue")
 
-enum AsyncTaskError: Error {
+public enum AsyncTaskError: Error {
     case timeout
     case emptySequence
 }

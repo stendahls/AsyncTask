@@ -152,7 +152,7 @@ extension Array {
         let numberOfTasks = count
 
         DispatchQueue.concurrentPerform(iterations: count) {index in
-            let _ = fd_sema2.wait(timeout: DispatchTime(timeInterval: -1))
+            let _ = fd_sema2.wait(timeout: DispatchTime.withTimeInterval(-1))
             let result = transform(self[index])
             async_custom_queue.sync {
                 results[index] = result
@@ -164,7 +164,7 @@ extension Array {
             }
         }
 
-        let _ = fd_sema.wait(timeout: DispatchTime(timeInterval: -1))
+        let _ = fd_sema.wait(timeout: DispatchTime.withTimeInterval(-1))
         return results.flatMap {$0}
     }
 

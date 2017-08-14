@@ -67,7 +67,7 @@ extension ThrowableTaskType {
     }
 
     public func awaitResult(_ queue: DispatchQueue = DefaultQueue, timeout: TimeInterval = TimeoutForever) -> Result<ReturnType> {
-        let timeout = DispatchTime(timeInterval: timeout)
+        let timeout = DispatchTime.withTimeInterval(timeout)
 
         var value: Result<ReturnType>?
         let fd_sema = DispatchSemaphore(value: 0)
