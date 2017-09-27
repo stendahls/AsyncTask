@@ -34,7 +34,7 @@ public protocol TaskType {
 
     func action(_ completion: @escaping ResultCallback)
     func async(_ queue: DispatchQueue, completion: @escaping ResultCallback)
-    func await(_ queue: DispatchQueue) -> ReturnType
+    @discardableResult func await(_ queue: DispatchQueue) -> ReturnType
 }
 
 extension TaskType {
@@ -55,6 +55,7 @@ extension TaskType {
         }
     }
 
+    @discardableResult
     public func await(_ queue: DispatchQueue = DefaultQueue) -> ReturnType {
         return try! throwableTask.awaitResult(queue).extract()
     }

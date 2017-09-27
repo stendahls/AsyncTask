@@ -48,8 +48,8 @@ public protocol ThrowableTaskType {
     func action(_ completion: @escaping ResultCallback)
     func asyncResult(_ queue: DispatchQueue, completion: @escaping ResultCallback)
     func async(_ queue: DispatchQueue, completion: @escaping (ReturnType?) -> Void)
-    func awaitResult(_ queue: DispatchQueue, timeout: TimeInterval) -> Result<ReturnType>
-    func await(_ queue: DispatchQueue, timeout: TimeInterval) throws -> ReturnType
+    @discardableResult func awaitResult(_ queue: DispatchQueue, timeout: TimeInterval) -> Result<ReturnType>
+    @discardableResult func await(_ queue: DispatchQueue, timeout: TimeInterval) throws -> ReturnType
 }
 
 extension ThrowableTaskType {
@@ -66,6 +66,7 @@ extension ThrowableTaskType {
         }
     }
 
+    @discardableResult
     public func awaitResult(_ queue: DispatchQueue = DefaultQueue, timeout: TimeInterval = TimeoutForever) -> Result<ReturnType> {
         let timeout = DispatchTime.withTimeInterval(timeout)
 
@@ -86,6 +87,7 @@ extension ThrowableTaskType {
         return value!
     }
 
+    @discardableResult
     public func await(_ queue: DispatchQueue = DefaultQueue, timeout: TimeInterval = TimeoutForever) throws -> ReturnType {
         return try awaitResult(queue, timeout: timeout).extract()
     }

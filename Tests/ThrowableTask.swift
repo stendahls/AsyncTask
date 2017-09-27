@@ -40,6 +40,21 @@ class ThrowableTaskTest: XCTestCase {
         super.tearDown()
     }
     
+    func testThatAwaitHasDiscardableResult() {
+        let task = ThrowableTask<String> { (completion: (String) -> Void) in
+            // do nothing
+            completion("Foobar")
+        }
+        
+        do {
+            try task.await()
+        } catch {
+            // nothing
+        }
+        
+        XCTAssert(true)
+    }
+    
     func testTaskThrows() {
         enum TaskError: Error {
             case notFound

@@ -28,7 +28,7 @@ import Foundation
 
 extension Collection {
     /// Return a copy of `self` with its elements shuffled
-    func shuffle() -> [Generator.Element] {
+    func shuffle() -> [Iterator.Element] {
         var list = Array(self)
         list.shuffle()
         return list
@@ -44,7 +44,8 @@ extension MutableCollection where Index == Int {
         for i in startIndex ..< endIndex - 1 {
             let j = Int(arc4random_uniform(UInt32(endIndex - i))) + i
             if i != j {
-                swap(&self[i], &self[j])
+//                swap(&self[i], &self[j])
+                self.swapAt(i, j)
             }
         }
     }

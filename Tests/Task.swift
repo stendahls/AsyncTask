@@ -40,6 +40,17 @@ class TaskTests: XCTestCase {
         super.tearDown()
     }
     
+    func testThatAwaitHasDiscardableResult() {
+        let task = Task<String> { (completion: (String) -> Void) in
+            // do nothing
+            completion("Foobar")
+        }
+        
+        task.await()
+        
+        XCTAssert(true)
+    }
+    
     func testTaskWithLongLastingWork() {
         func encode(message: String) -> String {
             Thread.sleep(forTimeInterval: 0.1)
@@ -59,9 +70,9 @@ class TaskTests: XCTestCase {
     
     func testTaskWhichWrapAsynchronousCall() {
         let session = URLSession(configuration: .ephemeral)
-        
-        let get = {(URL: URL) in
-            Task { session.dataTask(with: URL, completionHandler: $0).resume() }
+        let get = { (URL: URL) in
+            Task<(Data?, URLResponse?, Error?)> {
+                session.dataTask(with: URL, completionHandler: $0).resume() }
         }
         
         let url = URL(string: "https://httpbin.org/delay/1")!
@@ -152,7 +163,7 @@ class TaskTests: XCTestCase {
             a = 1
             
             XCTAssert(a == 1)
-        }.async {
+        }.async { (_) in
             XCTAssert(a == 1)
             
             expect.fulfill()
