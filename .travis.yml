@@ -6,7 +6,7 @@ env:
   global:
   - FRAMEWORK_NAME=AsyncTask
 
-#branches:
+branches:
   only:
   - swift_4
 
