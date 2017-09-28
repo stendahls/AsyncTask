@@ -7,8 +7,8 @@ env:
   - FRAMEWORK_NAME=AsyncTask
 
 #branches:
-#  only:
-#  - master
+  only:
+  - swift_4
 
 before_install:
 - brew update
@@ -16,8 +16,9 @@ before_install:
 - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
 
 script:
-- xcodebuild clean build test -project AsyncTask.xcodeproj -scheme 'AsyncTaskOSXTests' 
-- pod lib lint AsyncTask.podspec
+# - xcodebuild clean build test -project AsyncTask.xcodeproj -scheme 'AsyncTaskOSXTests' 
+- xcodebuild build test -project AsyncTask.xcodeproj -scheme 'AsyncTaskOSXTests' 
+- pod --verbose lib lint AsyncTask.podspec
 
 before_deploy:
 - carthage build --no-skip-current --platform osx, ios
