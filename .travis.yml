@@ -17,7 +17,7 @@ before_install:
 
 script:
 - xcodebuild clean build test -project AsyncTask.xcodeproj -scheme 'AsyncTaskOSXTests' 
-- pod lib lint AsyncTask.podspec --verbose
+- pod lib lint AsyncTask.podspec --verbose --no-clean
 
 before_deploy:
 - carthage build --no-skip-current --platform osx, ios
